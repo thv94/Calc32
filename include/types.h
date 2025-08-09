@@ -30,7 +30,7 @@ typedef enum
 typedef struct
 {
     int   button_id;
-    char* text;
+    const char* text;
     int   row;
     int   col;
     int   width;

@@ -7,8 +7,8 @@
 #define MAX_RESULT_VALUE  999999999
 
 OPERATOR operator;
-float x_reg;
-float y_reg;
+double x_reg;
+double y_reg;
 
 /*********************************************************
  * Function: computations_process_num
@@ -21,7 +21,7 @@ void computations_process_num(HWND hwnd, int num)
 {
     x_reg = (x_reg * 10) + num;
     computations_write_result(hwnd, x_reg);
-} /* computations_process_num */
+}
 
 /*********************************************************
  * Function: computations_process_zero
@@ -38,7 +38,7 @@ void computations_process_zero(HWND hwnd)
         x_reg = (x_reg * 10);
         computations_write_result(hwnd, x_reg);
     }
-} /* computations_process_zero */
+}
 
 /*********************************************************
  * Function: computations_process_operator
@@ -58,7 +58,7 @@ void computations_process_operator(HWND hwnd, OPERATOR op_input)
         SetDlgItemText(hwnd, RESULT_FIELD_ID, "");
         operator = op_input;
     }
-} /* computations_process_operator */
+}
 
 /*********************************************************
  * Function: computations_process_special_key
@@ -71,7 +71,7 @@ void computations_process_operator(HWND hwnd, OPERATOR op_input)
 void computations_process_special_key(HWND hwnd, SPECIAL_KEY special_key)
 {
     bool valid_key = true;
-    float result = 0;
+    double result = 0;
 
     if (x_reg != 0)
     {
@@ -80,41 +80,19 @@ void computations_process_special_key(HWND hwnd, SPECIAL_KEY special_key)
             case KEY_EQUAL:
                 switch(operator)
                 {
-                    case OP_ADD:
-                        result = x_reg + y_reg;
-                        break;
-                    case OP_SUBTRACT:
-                        result = y_reg - x_reg;
-                        break;
-                    case OP_MULTIPLY:
-                        result = x_reg * y_reg;
-                        break;
-                    case OP_DIVIDE:
-                        result = y_reg / x_reg;
-                        break;
-                    default:
-                        valid_key = false;
-                        break;
+                    case OP_ADD:      result = x_reg + y_reg; break;
+                    case OP_SUBTRACT: result = y_reg - x_reg; break;
+                    case OP_MULTIPLY: result = x_reg * y_reg; break;
+                    case OP_DIVIDE:   result = y_reg / x_reg; break;
+                    default:          valid_key = false;      break;
                 }
                 break;
-            case KEY_INV:
-                result = 1 / x_reg;
-                break;
-            case KEY_SQRT:
-                result = sqrt(x_reg);
-                break;
-            case KEY_SQUARE:
-                result = x_reg * x_reg;
-                break;
-            case KEY_BACKSPACE:
-                result = floor(x_reg / 10);
-                break;
-            case KEY_POS_NEG:
-                result = x_reg * -1;
-                break;
-            default:
-                valid_key = false;
-                break;
+            case KEY_INV:       result = 1 / x_reg;         break;
+            case KEY_SQRT:      result = sqrt(x_reg);       break;
+            case KEY_SQUARE:    result = x_reg * x_reg;     break;
+            case KEY_BACKSPACE: result = floor(x_reg / 10); break;
+            case KEY_POS_NEG:   result = x_reg * -1;        break;
+            default:            valid_key = false;          break;
         }
 
         if (valid_key)
@@ -134,7 +112,7 @@ void computations_process_special_key(HWND hwnd, SPECIAL_KEY special_key)
         operator    = OP_NONE;
         special_key = KEY_NONE;
     }
-} /* computations_process_special_key */
+}
     
 /*********************************************************
  * Function: computations_process_clear
@@ -147,7 +125,7 @@ void computations_process_clear(HWND hwnd)
 {
     SetDlgItemText(hwnd, RESULT_FIELD_ID, "");
     computations_clear_registers();
-} /* computations_process_clear */
+}
 
 /*********************************************************
  * Function: computations_clear_registers
@@ -160,7 +138,7 @@ void computations_clear_registers()
 {
     x_reg = 0;
     y_reg = 0;
-} /* computations_clear_registers */
+}
 
 /*********************************************************
  * Function: computations_write_result
@@ -170,9 +148,9 @@ void computations_clear_registers()
  *     field.
  *
  ********************************************************/
-void computations_write_result(HWND hwnd, float result_fl)
+void computations_write_result(HWND hwnd, double result_fl)
 {
     char result_str[MAX_RESULT_LENGTH];
     snprintf(result_str, MAX_RESULT_LENGTH, "%0.9g", result_fl);
     SetDlgItemText(hwnd, RESULT_FIELD_ID, result_str);
-} /* computations_write_result */
+}

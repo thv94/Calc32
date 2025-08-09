@@ -36,7 +36,7 @@
 #define LAST_COL COL_4
 
 /* TODO: (2) Make this dynamic */
-#define WINDOW_WIDTH  225
-#define WINDOW_HEIGHT 270
+#define WINDOW_WIDTH  240
+#define WINDOW_HEIGHT 280
 
 #endif /* GRID_LAYOUT_H */
