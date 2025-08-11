@@ -40,6 +40,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     WNDCLASSEX wc;
     HWND hwnd;
     MSG msg;
+    int client_width;
+    int client_height;
+    RECT windowRect = {0, 0, WINDOW_WIDTH, WINDOW_HEIGHT};
 
     /* UNUSED */
     (void)hPrevInstance;
@@ -66,13 +69,18 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         return 0;
     }
 
+    AdjustWindowRectEx(&windowRect, WS_OVERLAPPEDWINDOW, FALSE, 0);
+
+    client_width  = windowRect.right - windowRect.left;
+    client_height = windowRect.bottom - windowRect.top;
+
     hwnd = CreateWindowEx(
         0,
         "WindowClass",
         WINDOW_TITLE,
         WS_OVERLAPPEDWINDOW & ~WS_MAXIMIZEBOX & ~WS_THICKFRAME,
         CW_USEDEFAULT, CW_USEDEFAULT,
-        WINDOW_WIDTH, WINDOW_HEIGHT,
+        client_width, client_height,
         NULL,
         NULL,
         hInstance,

@@ -11,17 +11,19 @@
 
 #define PADDING 3
 
+/* As the button sizes increase, need to also account for in-between padding */
 #define BUTTON_WIDTH         GRID_CELL_WIDTH
 #define MEDIUM_BUTTON_WIDTH  (GRID_CELL_WIDTH * 2) + PADDING
 #define LARGE_BUTTON_WIDTH   (GRID_CELL_WIDTH * 3) + (PADDING * 2)
 
 #define BUTTON_HEIGHT        GRID_CELL_HEIGHT
 
+/* Result Field is 4 cells wide, which means it will have the equivalent of 3 paddings */
 #define RESULT_FIELD_WIDTH   ((GRID_CELL_WIDTH * 4) + (PADDING * 3))
 #define RESULT_FIELD_HEIGHT  GRID_CELL_HEIGHT
 
 #define ROW_1 (PADDING * 2)
-#define ROW_2 (ROW_1 + GRID_CELL_HEIGHT + (PADDING * 2))
+#define ROW_2 (ROW_1 + GRID_CELL_HEIGHT + (PADDING * 4))
 #define ROW_3 (ROW_2 + GRID_CELL_HEIGHT + PADDING)
 #define ROW_4 (ROW_3 + GRID_CELL_HEIGHT + PADDING)
 #define ROW_5 (ROW_4 + GRID_CELL_HEIGHT + PADDING)
@@ -35,8 +37,7 @@
 #define COL_4 (COL_3 + GRID_CELL_WIDTH + PADDING)
 #define LAST_COL COL_4
 
-/* TODO: (2) Make this dynamic */
-#define WINDOW_WIDTH  240
-#define WINDOW_HEIGHT 280
+#define WINDOW_WIDTH  (NUM_COLS * GRID_CELL_WIDTH) + ((NUM_COLS + 1) * PADDING) + PADDING
+#define WINDOW_HEIGHT RESULT_FIELD_HEIGHT + (PADDING * 2) + (NUM_ROWS * GRID_CELL_HEIGHT) + ((NUM_ROWS + 1) * PADDING) + (PADDING * 3)
 
 #endif /* GRID_LAYOUT_H */
